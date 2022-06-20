@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
 using ShoppingCart.Products;
 using ShoppingCart.ProdSelected;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace ShoppingCart
 {
@@ -14,7 +13,7 @@ namespace ShoppingCart
         static void Main(string[] args)
         {
             var jsonStrg = File.ReadAllText(@"G:\Programming\Projetos\ShoppingCart\ShoppingCart\products.json");
-            var listProducts = JsonConvert.DeserializeObject<Root>(jsonStrg);
+            var listProducts = JsonConvert.DeserializeObject<List<Product>>(jsonStrg);
 
             DelimitersToSplit separators = new DelimitersToSplit();
 
@@ -23,7 +22,7 @@ namespace ShoppingCart
 
             var resInputUser = separators.Delimiter(quantityItems);
 
-            var selectProd = (from product in listProducts.Products
+            var selectProd = (from product in listProducts
                               join id in resInputUser on product.Id equals id
                              select product).ToList();
 
