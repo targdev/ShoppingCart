@@ -5,6 +5,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using ShoppingCart.Products;
 using ShoppingCart.ProdSelected;
+using ShoppingCart.CalcPromotions;
+using System.Text;
 
 namespace ShoppingCart
 {
@@ -17,6 +19,7 @@ namespace ShoppingCart
 
             DelimitersToSplit separators = new DelimitersToSplit();
             PromotionAdquired promotionAdquired = new PromotionAdquired();
+            ApplyingDiscount calcPromotions = new ApplyingDiscount();
 
             Console.WriteLine("Quais itens deseja adicionar no carrinho?");
             var quantityItems = Console.ReadLine();
@@ -30,22 +33,12 @@ namespace ShoppingCart
                                           group product by product.Category into newGroup
                                           select newGroup).Count();
 
-           var discountClub = promotionAdquired.PromotionByAmountCategories(groupByCategoriesQuery);
-            var sumDiscounts = selectProd
-                .Aggregate(0d, (acc, product) => {
-                    var listadelista = product.Promotions.Where(promotion =>
-                    {
-                        var looks = promotion.Looks.Where(look => discountClub == look).FirstOrDefault();
-
-                        return looks != null;
-                    }).FirstOrDefault();
-                    //FAZER UMA COISA DAHORA COM O PRICE!!!!!!!!!!!!!
-                    var price = listadelista == null ? product.RegularPrice : listadelista.Price;
-
-                    return acc + price;
-                });
+            var discountClub = promotionAdquired.PromotionByAmountCategories(groupByCategoriesQuery);
+            var sumDiscounts = calcPromotions.CalculatingPromotion(selectProd, discountClub);
 
             Console.ReadKey();
         }
+
+        
     }
 }
