@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ShoppingCart.CalcPromotions
 {
-    public class ApplyingDiscount
+    public class RescuingValues
     {
         public double CalculatingPromotion(List<Product> selectProd, string discountClub)
         {
@@ -18,12 +18,21 @@ namespace ShoppingCart.CalcPromotions
                          return looks != null;
                      }).FirstOrDefault();
 
-                     //FAZER UMA COISA DAHORA COM O PRICE!!!!!!!!!!!!!
-                     //var price = verificationPromotions == null ? product.RegularPrice : verificationPromotions.Price;
                      var price = verificationPromotions?.Price ?? product.RegularPrice;
                      return acc + price;
                  });
             return sumDiscounts;
+        }
+
+        public double ValueTotal(List<Product> selectProd, List<double> valueTotal)
+        {
+            var sumValues = selectProd
+                 .Aggregate(0d, (acc, product) =>
+                 {
+                     var verificationRegularPrice = product.RegularPrice;
+                     return acc + verificationRegularPrice;
+                 });
+            return sumValues;
         }
     }
 }

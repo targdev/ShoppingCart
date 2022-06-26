@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using ShoppingCart.Products;
 using ShoppingCart.ProdSelected;
 using ShoppingCart.CalcPromotions;
-using System.Text;
+using ShoppingCart.ResProducts;
 
 namespace ShoppingCart
 {
@@ -19,26 +19,42 @@ namespace ShoppingCart
 
             DelimitersToSplit separators = new DelimitersToSplit();
             PromotionAdquired promotionAdquired = new PromotionAdquired();
-            ApplyingDiscount calcPromotions = new ApplyingDiscount();
+            RescuingValues calcValues = new RescuingValues();
+            var objFinale = new ObjectFinal();
 
             Console.WriteLine("Quais itens deseja adicionar no carrinho?");
             var quantityItems = Console.ReadLine();
-            var resInputUser = separators.Delimiter(quantityItems);
+            var inputUser = separators.Delimiter(quantityItems);
 
             var selectProd = (from product in listProducts.Products
-                              join id in resInputUser on product.Id equals id
+                              join id in inputUser on product.Id equals id
                               select product).ToList();
 
             var groupByCategoriesQuery = (from product in selectProd
                                           group product by product.Category into newGroup
                                           select newGroup).Count();
 
-            var discountClub = promotionAdquired.PromotionByAmountCategories(groupByCategoriesQuery);
-            var sumDiscounts = calcPromotions.CalculatingPromotion(selectProd, discountClub);
+            var valueTotal = (from product in selectProd
+                              select product.RegularPrice).ToList();
 
+            var discountClub = promotionAdquired.PromotionByAmountCategories(groupByCategoriesQuery);
+            var sumDiscounts = calcValues.CalculatingPromotion(selectProd, discountClub);
+            var sumRegularPrice = calcValues.ValueTotal(selectProd, valueTotal);
+            var percentageDiscount = (sumRegularPrice - sumDiscounts) / sumRegularPrice * 100;
+
+            objFinale.Products.AddRange(selectProd.Select(p => new FinalProduct
+            {
+                Name = p.Name,
+                Category = p.Category
+            }));
+            objFinale.Promotion = discountClub;
+            objFinale.TotalPrice = sumDiscounts;
+            objFinale.DiscountValue = sumRegularPrice - sumDiscounts;
+            objFinale.DiscountPercentage = Math.Round(percentageDiscount, 2);
+
+            string output = JsonConvert.SerializeObject(objFinale);
+            Console.WriteLine(output);
             Console.ReadKey();
         }
-
-        
     }
 }
