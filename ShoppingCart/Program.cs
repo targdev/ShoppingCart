@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -53,7 +52,6 @@ namespace ShoppingCart
             objFinale.DiscountPercentage = Math.Round(percentageDiscount, 2);
 
             string output = JsonConvert.SerializeObject(objFinale);
-            Console.WriteLine(output);
             Console.ReadKey();
         }
     }
