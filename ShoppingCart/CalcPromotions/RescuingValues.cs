@@ -24,7 +24,7 @@ namespace ShoppingCart.CalcPromotions
             return sumDiscounts;
         }
 
-        public double ValueTotal(List<Product> selectProd, List<double> valueTotal)
+        public double ValueTotal(List<Product> selectProd)
         {
             var sumValues = selectProd
                  .Aggregate(0d, (acc, product) =>

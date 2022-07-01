@@ -16,9 +16,9 @@ namespace ShoppingCart
             var jsonStrg = File.ReadAllText(@"G:\Programming\Projetos\ShoppingCart\ShoppingCart\products.json");
             var listProducts = JsonConvert.DeserializeObject<Root>(jsonStrg);
 
-            DelimitersToSplit separators = new DelimitersToSplit();
-            PromotionAdquired promotionAdquired = new PromotionAdquired();
-            RescuingValues calcValues = new RescuingValues();
+            var separators = new DelimitersToSplit();
+            var promotionAdquired = new PromotionAdquired();
+            var calcValues = new RescuingValues();
             var objFinale = new ObjectFinal();
 
             Console.WriteLine("Quais itens deseja adicionar no carrinho?");
@@ -33,12 +33,9 @@ namespace ShoppingCart
                                           group product by product.Category into newGroup
                                           select newGroup).Count();
 
-            var valueTotal = (from product in selectProd
-                              select product.RegularPrice).ToList();
-
             var discountClub = promotionAdquired.PromotionByAmountCategories(groupByCategoriesQuery);
             var sumDiscounts = calcValues.CalculatingPromotion(selectProd, discountClub);
-            var sumRegularPrice = calcValues.ValueTotal(selectProd, valueTotal);
+            var sumRegularPrice = calcValues.ValueTotal(selectProd);
             var percentageDiscount = (sumRegularPrice - sumDiscounts) / sumRegularPrice * 100;
 
             objFinale.Products.AddRange(selectProd.Select(p => new FinalProduct
@@ -52,6 +49,7 @@ namespace ShoppingCart
             objFinale.DiscountPercentage = Math.Round(percentageDiscount, 2);
 
             string output = JsonConvert.SerializeObject(objFinale);
+            Console.WriteLine(output);
             Console.ReadKey();
         }
     }

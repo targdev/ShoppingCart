@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ShoppingCart.ProdSelected
 {
-    internal class PromotionAdquired
+    public class PromotionAdquired
     {
         public string PromotionByAmountCategories(int amountCategories)
         {
