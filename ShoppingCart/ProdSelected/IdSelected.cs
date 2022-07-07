@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ShoppingCart.ProdSelected
 {
-    public class DelimitersToSplit
+    public class IdSelected
     {
         public List<int> Delimiter(string inputUser)
         {

@@ -16,7 +16,7 @@ namespace ShoppingCart
             var jsonStrg = File.ReadAllText(@"G:\Programming\Projetos\ShoppingCart\ShoppingCart\products.json");
             var listProducts = JsonConvert.DeserializeObject<Root>(jsonStrg);
 
-            var separators = new DelimitersToSplit();
+            var separators = new IdSelected();
             var promotionAdquired = new PromotionAdquired();
             var calcValues = new RescuingValues();
             var objFinale = new ObjectFinal();

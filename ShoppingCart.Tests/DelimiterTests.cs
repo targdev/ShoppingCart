@@ -7,32 +7,41 @@ namespace ShoppingCart.Tests
 {
     public class DelimiterTests
     {
-        [Fact]
-        public void DelimitersToSplit_Delimiter_ReturnIdsSeparated()
+        [Fact(DisplayName = "Delimiter: Should return ID's from user's line input")]
+        public void DelimitersToSplit_Delimiter_ReturnIdsSeparatedByComma()
         {
+            //-----------------------------------------------------------------------------------
             // Arrange 
-            var delimiter = new DelimitersToSplit();
+            //-----------------------------------------------------------------------------------
+            var delimiter = new IdSelected();
 
+            //-----------------------------------------------------------------------------------
             // Act
-            var result = delimiter.Delimiter("110, 210");
+            //-----------------------------------------------------------------------------------
+            var result = delimiter.Delimiter("110, 120, 130, 140, 210, 220, 230, 310, 430");
 
+            //-----------------------------------------------------------------------------------
             // Assert
-            Assert.Equal(new List<int>() { 110, 210 }, result);
+            //-----------------------------------------------------------------------------------
+            Assert.Equal(new List<int>() { 110, 120, 130, 140, 210, 220, 230, 310, 430 }, result);
         }
+        [Fact(DisplayName = "Delimiter: Should return user input line ID's separated by special characters")]
+        public void DelimitersToSplit_Delimiter_ReturnIdsSeparatedBySpecialCharacters()
+        {
+            //-----------------------------------------------------------------------------------
+            // Arrange 
+            //-----------------------------------------------------------------------------------
+            var delimiter = new IdSelected();
 
-        //[Theory]
-        //[InlineData("110... 210;260", {110, 210, 260})]
-        //public void DelimitersToSplit_Delimiter_ReturnsIdsSeparatedByDifferentSymbols(string inputUser, List<int>)
-        //{
-        //    // Arrange 
-        //    var delimiter = new DelimitersToSplit();
+            //-----------------------------------------------------------------------------------
+            // Act
+            //-----------------------------------------------------------------------------------
+            var result = delimiter.Delimiter("110.  120; 130\n 140: 210[220] 230// 310...430");
 
-        //    // Act
-        //    var result = delimiter.Delimiter(inputUser);
-
-        //    // Assert
-        //    Assert.Equal(outputResult, result);
-        //}
-
+            //-----------------------------------------------------------------------------------
+            // Assert
+            //-----------------------------------------------------------------------------------
+            Assert.Equal(new List<int>() { 110, 120, 130, 140, 210, 220, 230, 310, 430 }, result);
+        }
     }
 }
