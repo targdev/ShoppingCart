@@ -9,7 +9,7 @@ namespace ShoppingCart.Application.UseCases.Abstratcs
     {
         List<int> Delimiter(string inputUser);
         List<Product> GetProductUser(List<Product> listProduct, List<int> inputUser);
-        int GetProductCount(List<Product> listProductUser);
+        int GetNumberCategoriesProduct(List<Product> listProductUser);
         string PromotionByAmountCategories(int amountCategories);
     }
 }

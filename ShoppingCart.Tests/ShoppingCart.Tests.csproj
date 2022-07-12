@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShoppingCart\ShoppingCart.csproj" />
+    <ProjectReference Include="..\ShoppingCart\ShoppingCart.API.csproj" />
   </ItemGroup>
 
 </Project>

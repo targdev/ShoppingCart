@@ -27,23 +27,17 @@ namespace ShoppingCart.Application.UseCases
 
             return listId;
         }
-
-        public int GetProductCount(List<Product> listProductUser)
-        {
-            var groupByCategoriesQuery = (from product in listProductUser
-                                          group product by product.Category into newGroup
-                                          select newGroup).Count();
-
-            return groupByCategoriesQuery;
-        }
-
         public List<Product> GetProductUser(List<Product> listProduct, List<int> inputUser)
         {
-            var selectProd = (from product in listProduct
-                              join id in inputUser on product.Id equals id
-                              select product).ToList();
-
-            return selectProd;
+            return (from product in listProduct
+                    join id in inputUser on product.Id equals id
+                    select product).ToList();
+        }
+        public int GetNumberCategoriesProduct(List<Product> listProductUser)
+        {
+            return (from product in listProductUser
+                    group product by product.Category into newGroup
+                    select newGroup).Count();
         }
         public string PromotionByAmountCategories(int amountCategories)
         {

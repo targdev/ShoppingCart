@@ -25,7 +25,7 @@ namespace ShoppingCart
 
             var inputUser = getProductUseCase.Delimiter(quantityItems);
             var selectProd = getProductUseCase.GetProductUser(listProduct, inputUser);
-            var getCountCategories = getProductUseCase.GetProductCount(selectProd);
+            var getCountCategories = getProductUseCase.GetNumberCategoriesProduct(selectProd);
             var amountCategories = getProductUseCase.PromotionByAmountCategories(getCountCategories);
 
             var sumDiscounts = RegisteredProductValuesUseCase.CalculatingPromotion(selectProd, amountCategories);

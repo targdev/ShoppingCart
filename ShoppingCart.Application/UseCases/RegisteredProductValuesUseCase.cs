@@ -11,7 +11,7 @@ namespace ShoppingCart.Application.UseCases
     {
         public double CalculatingPromotion(List<Product> selectProd, string discountClub)
         {
-            var sumDiscounts = selectProd
+            return selectProd
                  .Aggregate(0d, (acc, product) =>
                  {
                      var verificationPromotions = product.Promotions.Where(promotion =>
@@ -24,23 +24,19 @@ namespace ShoppingCart.Application.UseCases
                      var price = verificationPromotions?.Price ?? product.RegularPrice;
                      return acc + price;
                  });
-            return sumDiscounts;
-        }  
+        }
         public double ValueTotal(List<Product> selectProd)
         {
-            var sumValues = selectProd
+            return selectProd
                  .Aggregate(0d, (acc, product) =>
                  {
                      var verificationRegularPrice = product.RegularPrice;
                      return acc + verificationRegularPrice;
                  });
-            return sumValues;
         }
         public double DiscountPercentage(double sumRegularPrice, double sumDiscounts)
         {
-            var percentageDiscount = Math.Round((sumRegularPrice - sumDiscounts) / sumRegularPrice * 100);
-
-            return percentageDiscount;
+            return Math.Round((sumRegularPrice - sumDiscounts) / sumRegularPrice * 100);
         }
         public double DiscountValue(double sumRegularPrice, double sumDiscounts)
         {

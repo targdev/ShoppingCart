@@ -9,9 +9,10 @@ namespace ShoppingCart.Application.UseCases
     {
         public Root JsonProducts()
         {
-            var jsonStrg = File.ReadAllText(@"G:\Programming\Projetos\ShoppingCart\ShoppingCart\products.json");
-
-            return JsonConvert.DeserializeObject<Root>(jsonStrg);
+            return JsonConvert.DeserializeObject<Root>(File
+                .ReadAllText
+                (@"G:\Programming\Projetos\ShoppingCart\ShoppingCart\products.json"
+                ));
         }
     }
 }

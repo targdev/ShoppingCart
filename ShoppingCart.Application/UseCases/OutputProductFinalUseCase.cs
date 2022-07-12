@@ -11,9 +11,7 @@ namespace ShoppingCart.Application.UseCases
     {
         public string OutputProductsUser(FinalProduct finalProduct)
         {
-            var output = JsonConvert.SerializeObject(finalProduct);
-
-            return output;
+            return JsonConvert.SerializeObject(finalProduct); ;
         }
     }
 }
