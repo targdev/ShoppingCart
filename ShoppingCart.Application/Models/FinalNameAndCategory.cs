@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShoppingCart.ResProducts
+namespace ShoppingCart.Application.Models
 {
-    public class FinalProduct
+    public class FinalNameAndCategory
     {
         public string Name { get; set; }
         public string Category { get; set; }

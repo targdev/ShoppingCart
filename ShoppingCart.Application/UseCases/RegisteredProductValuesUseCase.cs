@@ -1,10 +1,13 @@
-﻿using ShoppingCart.Products;
+﻿using ShoppingCart.Application.UseCases.Abstratcs;
+using ShoppingCart.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-namespace ShoppingCart.CalcPromotions
+namespace ShoppingCart.Application.UseCases
 {
-    public class RescuingValues
+    public class RegisteredProductValuesUseCase : IRegisteredProductValuesUseCase
     {
         public double CalculatingPromotion(List<Product> selectProd, string discountClub)
         {
@@ -22,8 +25,7 @@ namespace ShoppingCart.CalcPromotions
                      return acc + price;
                  });
             return sumDiscounts;
-        }
-
+        }  
         public double ValueTotal(List<Product> selectProd)
         {
             var sumValues = selectProd
@@ -33,6 +35,16 @@ namespace ShoppingCart.CalcPromotions
                      return acc + verificationRegularPrice;
                  });
             return sumValues;
+        }
+        public double DiscountPercentage(double sumRegularPrice, double sumDiscounts)
+        {
+            var percentageDiscount = Math.Round((sumRegularPrice - sumDiscounts) / sumRegularPrice * 100);
+
+            return percentageDiscount;
+        }
+        public double DiscountValue(double sumRegularPrice, double sumDiscounts)
+        {
+            return sumRegularPrice - sumDiscounts;
         }
     }
 }

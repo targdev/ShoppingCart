@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ShoppingCart.Products
+namespace ShoppingCart.Domain.ValueObjects
 {
     public class Product
     {

@@ -1,5 +1,5 @@
 using ShoppingCart.CalcPromotions;
-using ShoppingCart.Products;
+using ShoppingCart.Domain.Models;
 using System.Collections.Generic;
 using Xunit;
 

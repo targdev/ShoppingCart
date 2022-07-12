@@ -10,6 +10,7 @@ namespace ShoppingCart.Tests
         [InlineData(2, "DOUBLE LOOK")]
         [InlineData(3, "TRIPLE LOOK")]
         [InlineData(1, "SINGLE LOOK")]
+        [InlineData(5, "SINGLE LOOK")]
         public void PromotionAdquired_PromotionByAmountCategories_ReturnPromotion(int count, string promotion)
         {
             //-----------------------------------------------------------------------------------

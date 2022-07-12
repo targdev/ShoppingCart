@@ -1,11 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using ShoppingCart.Products;
-using ShoppingCart.ProdSelected;
-using ShoppingCart.CalcPromotions;
-using ShoppingCart.ResProducts;
+using ShoppingCart.Application.UseCases;
+using ShoppingCart.Domain.Abstractions.Gateway;
+using ShoppingCart.Application.Models;
+using ShoppingCart.Application.UseCases.Abstratcs;
 
 namespace ShoppingCart
 {
@@ -13,43 +12,39 @@ namespace ShoppingCart
     {
         static void Main(string[] args)
         {
-            var jsonStrg = File.ReadAllText(@"G:\Programming\Projetos\ShoppingCart\ShoppingCart\products.json");
-            var listProducts = JsonConvert.DeserializeObject<Root>(jsonStrg);
-
-            var separators = new IdSelected();
-            var promotionAdquired = new PromotionAdquired();
-            var calcValues = new RescuingValues();
-            var objFinale = new ObjectFinal();
-
             Console.WriteLine("Quais itens deseja adicionar no carrinho?");
             var quantityItems = Console.ReadLine();
-            var inputUser = separators.Delimiter(quantityItems);
 
-            var selectProd = (from product in listProducts.Products
-                              join id in inputUser on product.Id equals id
-                              select product).ToList();
+            IAPIResquestGateway resquestGateway = new APIRequestGateway();
+            IRegisteredProductValuesUseCase RegisteredProductValuesUseCase = new RegisteredProductValuesUseCase();
+            IGetProductUseCase getProductUseCase = new GetProductUseCase();
+            ICreateProductFinalUseCase createProductFinalUseCase = new CreateProductFinalUseCase();
+            IOutputProductFinalUseCase outputProductFinalUseCase = new OutputProductFinalUseCase(); 
 
-            var groupByCategoriesQuery = (from product in selectProd
-                                          group product by product.Category into newGroup
-                                          select newGroup).Count();
+            var listProduct = resquestGateway.JsonProducts().Products;
 
-            var discountClub = promotionAdquired.PromotionByAmountCategories(groupByCategoriesQuery);
-            var sumDiscounts = calcValues.CalculatingPromotion(selectProd, discountClub);
-            var sumRegularPrice = calcValues.ValueTotal(selectProd);
-            var percentageDiscount = (sumRegularPrice - sumDiscounts) / sumRegularPrice * 100;
+            var inputUser = getProductUseCase.Delimiter(quantityItems);
+            var selectProd = getProductUseCase.GetProductUser(listProduct, inputUser);
+            var getCountCategories = getProductUseCase.GetProductCount(selectProd);
+            var amountCategories = getProductUseCase.PromotionByAmountCategories(getCountCategories);
 
-            objFinale.Products.AddRange(selectProd.Select(p => new FinalProduct
-            {
-                Name = p.Name,
-                Category = p.Category
-            }));
-            objFinale.Promotion = discountClub;
-            objFinale.TotalPrice = sumDiscounts;
-            objFinale.DiscountValue = sumRegularPrice - sumDiscounts;
-            objFinale.DiscountPercentage = Math.Round(percentageDiscount, 2);
+            var sumDiscounts = RegisteredProductValuesUseCase.CalculatingPromotion(selectProd, amountCategories);
+            var sumRegularPrice = RegisteredProductValuesUseCase.ValueTotal(selectProd);
+            var discountValue = RegisteredProductValuesUseCase.DiscountValue(sumRegularPrice, sumDiscounts);
+            var discountPercentage = RegisteredProductValuesUseCase.DiscountPercentage(sumRegularPrice, sumDiscounts);
 
-            string output = JsonConvert.SerializeObject(objFinale);
-            Console.WriteLine(output);
+            var outputProductsUser = createProductFinalUseCase.GetFinalProduct
+                (
+                selectProd, 
+                amountCategories, 
+                sumDiscounts, 
+                discountValue, 
+                discountPercentage
+                );
+
+            var constructJson = outputProductFinalUseCase.OutputProductsUser(outputProductsUser);
+
+            Console.WriteLine(constructJson);
             Console.ReadKey();
         }
     }
