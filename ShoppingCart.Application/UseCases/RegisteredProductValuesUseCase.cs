@@ -9,14 +9,14 @@ namespace ShoppingCart.Application.UseCases
 {
     public class RegisteredProductValuesUseCase : IRegisteredProductValuesUseCase
     {
-        public double CalculatingPromotion(List<Product> selectProd, string discountClub)
+        public double CalculatingPromotion(List<Product> selectProd, string amountCategories)
         {
             return selectProd
                  .Aggregate(0d, (acc, product) =>
                  {
                      var verificationPromotions = product.Promotions.Where(promotion =>
                      {
-                         var looks = promotion.Looks.Where(look => discountClub == look).FirstOrDefault();
+                         var looks = promotion.Looks.Where(look => amountCategories == look).FirstOrDefault();
 
                          return looks != null;
                      }).FirstOrDefault();
@@ -36,11 +36,11 @@ namespace ShoppingCart.Application.UseCases
         }
         public double DiscountPercentage(double sumRegularPrice, double sumDiscounts)
         {
-            return Math.Round((sumRegularPrice - sumDiscounts) / sumRegularPrice * 100);
+            return Math.Round((sumRegularPrice - sumDiscounts) / sumRegularPrice * 100, 2);
         }
         public double DiscountValue(double sumRegularPrice, double sumDiscounts)
         {
-            return sumRegularPrice - sumDiscounts;
+            return Math.Round(sumRegularPrice - sumDiscounts, 2);
         }
     }
 }
