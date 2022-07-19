@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
-using Newtonsoft.Json;
 using ShoppingCart.Application.UseCases;
 using ShoppingCart.Domain.Abstractions.Gateway;
-using ShoppingCart.Application.Models;
 using ShoppingCart.Application.UseCases.Abstratcs;
+using ShoppingCart.Infrastructure.DataProviders.WebServices;
 
 namespace ShoppingCart
 {
@@ -15,11 +13,11 @@ namespace ShoppingCart
             Console.WriteLine("Quais itens deseja adicionar no carrinho?");
             var quantityItems = Console.ReadLine();
 
-            IAPIResquestGateway resquestGateway = new APIRequestGateway();
+            IAPIResquestGateway resquestGateway = new APIRequestWebService();
             IRegisteredProductValuesUseCase RegisteredProductValuesUseCase = new RegisteredProductValuesUseCase();
             IGetProductUseCase getProductUseCase = new GetProductUseCase();
             ICreateProductFinalUseCase createProductFinalUseCase = new CreateProductFinalUseCase();
-            IOutputProductFinalUseCase outputProductFinalUseCase = new OutputProductFinalUseCase(); 
+            IOutputProductFinalUseCase outputProductFinalUseCase = new OutputProductFinalUseCase();
 
             var listProduct = resquestGateway.JsonProducts().Products;
 

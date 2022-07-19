@@ -136,9 +136,14 @@ namespace ShoppingCart.UnitTests.Application.UseCases
             var inputUser = "bacanudo, supimpa";
 
             //-----------------------------------------------------------------------------------
+            // Act
+            //-----------------------------------------------------------------------------------
+            Action act = () => delimiter.Delimiter(inputUser);
+
+            //-----------------------------------------------------------------------------------
             // Assert
             //-----------------------------------------------------------------------------------
-            Assert.Throws<FormatException>(() => delimiter.Delimiter(inputUser));
+            act.Should().Throw<ArgumentException>();
         }
 
         [Fact(DisplayName = "GetProductUser: Should return product user")]

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.API", "ShoppingCart\ShoppingCart.API.csproj", "{2EF92A0E-6CEC-4055-A814-AC28CFC03825}"
+	ProjectSection(ProjectDependencies) = postProject
+		{62C41B62-FBA0-4379-BCE2-11F264DE823B} = {62C41B62-FBA0-4379-BCE2-11F264DE823B}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.UnitTests", "ShoppingCart.Tests\ShoppingCart.UnitTests.csproj", "{9A8B393B-C922-4386-AC3A-29171C14CCA4}"
 EndProject
@@ -14,6 +17,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1E088F01-EC60-4C26-9B90-5C942F1DA231}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Application", "ShoppingCart.Application\ShoppingCart.Application.csproj", "{84FF5D8F-FA9C-40AF-8194-9C7E15AF5C91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCart.Infrastructure", "ShoppingCart.Infrastructure\ShoppingCart.Infrastructure.csproj", "{62C41B62-FBA0-4379-BCE2-11F264DE823B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +42,10 @@ Global
 		{84FF5D8F-FA9C-40AF-8194-9C7E15AF5C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84FF5D8F-FA9C-40AF-8194-9C7E15AF5C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84FF5D8F-FA9C-40AF-8194-9C7E15AF5C91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C41B62-FBA0-4379-BCE2-11F264DE823B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C41B62-FBA0-4379-BCE2-11F264DE823B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C41B62-FBA0-4379-BCE2-11F264DE823B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C41B62-FBA0-4379-BCE2-11F264DE823B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +55,7 @@ Global
 		{9A8B393B-C922-4386-AC3A-29171C14CCA4} = {395F1DFF-414B-4C8D-BB96-60D6A59D5198}
 		{14E8169D-C08C-4C4B-A242-D41BB8DDC94D} = {1E088F01-EC60-4C26-9B90-5C942F1DA231}
 		{84FF5D8F-FA9C-40AF-8194-9C7E15AF5C91} = {1E088F01-EC60-4C26-9B90-5C942F1DA231}
+		{62C41B62-FBA0-4379-BCE2-11F264DE823B} = {1E088F01-EC60-4C26-9B90-5C942F1DA231}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {440F59A9-2DAF-4023-BF7D-0FFAD15243C8}

@@ -3,9 +3,9 @@ using ShoppingCart.Domain.Abstractions.Gateway;
 using ShoppingCart.Domain.ValueObjects;
 using System.IO;
 
-namespace ShoppingCart.Application.UseCases
+namespace ShoppingCart.Infrastructure.DataProviders.WebServices
 {
-    public class APIRequestGateway : IAPIResquestGateway
+    public class APIRequestWebService : IAPIResquestGateway
     {
         public Root JsonProducts()
         {

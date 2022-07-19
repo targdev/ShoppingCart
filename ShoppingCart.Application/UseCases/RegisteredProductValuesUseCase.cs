@@ -31,7 +31,7 @@ namespace ShoppingCart.Application.UseCases
                  .Aggregate(0d, (acc, product) =>
                  {
                      var verificationRegularPrice = product.RegularPrice;
-                     return acc + verificationRegularPrice;
+                     return Math.Round(acc + verificationRegularPrice, 2);
                  });
         }
         public double DiscountPercentage(double sumRegularPrice, double sumDiscounts)
