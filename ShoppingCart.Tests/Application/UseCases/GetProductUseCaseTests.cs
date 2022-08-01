@@ -143,7 +143,7 @@ namespace ShoppingCart.UnitTests.Application.UseCases
             //-----------------------------------------------------------------------------------
             // Assert
             //-----------------------------------------------------------------------------------
-            act.Should().Throw<ArgumentException>();
+            act.Should().Throw<FormatException>();
         }
 
         [Fact(DisplayName = "GetProductUser: Should return product user")]

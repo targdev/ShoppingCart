@@ -2,7 +2,7 @@
 using ShoppingCart.Application.UseCases;
 using ShoppingCart.Domain.Abstractions.Gateway;
 using ShoppingCart.Application.UseCases.Abstratcs;
-using ShoppingCart.Infrastructure.DataProviders.WebServices;
+using ShoppingCart.Infrastructure.DataProviders.Repositories;
 
 namespace ShoppingCart
 {
@@ -13,7 +13,7 @@ namespace ShoppingCart
             Console.WriteLine("Quais itens deseja adicionar no carrinho?");
             var quantityItems = Console.ReadLine();
 
-            IAPIResquestGateway resquestGateway = new APIRequestWebService();
+            IAPIResquestGateway resquestGateway = new APIRequestGateway();
             IRegisteredProductValuesUseCase RegisteredProductValuesUseCase = new RegisteredProductValuesUseCase();
             IGetProductUseCase getProductUseCase = new GetProductUseCase();
             ICreateProductFinalUseCase createProductFinalUseCase = new CreateProductFinalUseCase();
